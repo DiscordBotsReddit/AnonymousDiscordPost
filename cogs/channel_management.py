@@ -3,9 +3,10 @@ import json
 import discord
 from discord import app_commands
 from discord.ext import commands
-from modals.secret_channel import ModChannel, SecretChannel
 from sqlalchemy import create_engine, select, update
 from sqlalchemy.orm import Session
+
+from modals.secret_channel import ModChannel, SecretChannel
 
 with open("./config.json", "r") as f:
     config = json.load(f)
@@ -17,6 +18,7 @@ class ChannelManagement(commands.GroupCog, name='setup'):
         self.bot = bot
 
     @app_commands.command(name='set_mod_channel', description='Set the channel that the mod output goes to.')
+    @app_commands.describe(mod_channel='The channel you want non-anonymous posts to go.')
     async def set_mod_channel(self, interaction: discord.Interaction, mod_channel: discord.TextChannel):
         async with interaction.channel.typing():
             with Session(engine) as session:
@@ -35,6 +37,7 @@ class ChannelManagement(commands.GroupCog, name='setup'):
 
 
     @app_commands.command(name='set_anonymous_channel', description='Set the channel that the anonymous posts go to.')
+    @app_commands.describe(anon_channel='The channel you want anonymous posts to go.')
     async def set_anonymous_channel(self, interaction: discord.Interaction, anon_channel: discord.TextChannel):
         async with interaction.channel.typing():
             with Session(engine) as session:
