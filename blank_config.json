@@ -1,0 +1,5 @@
+{
+    "TOKEN": " ",
+    "PREFIX": "anon>",
+    "DATABASE": "sqlalchemy-database-url"
+}
