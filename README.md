@@ -6,7 +6,7 @@ All commands are slash commands.  To be able to use the slash commands if you se
 
 `/setup` contains the 2 commands to `/set_anonymous_channel`(required) and `/set_mod_channel`(optional)
 
-If you use `set_mod_channel`, a non-anonymous version of `anon_post`s will be sent to that channel.  *USERS ARE NOTIFIED IF THIS HAPPENS*
+If you set a mod channel, a non-anonymous version of `anon_post`s will be sent to that channel.  *USERS ARE NOTIFIED IF THIS HAPPENS*
 
 ## Use
 `/anon_post content` sends whatever is in the `content` variable as an embed to the channel you specify in `set_anonymous_channel`.  No identifying information is sent, other than users may see the `User is typing...` notification by the chat bar.  No way to hide this with this implementation.
