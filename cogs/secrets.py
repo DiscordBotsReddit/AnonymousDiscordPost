@@ -4,9 +4,10 @@ from typing import Optional
 import discord
 from discord import app_commands
 from discord.ext import commands
-from modals.secret_channel import ModChannel, SecretChannel
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
+
+from modals.secret_channel import ModChannel, SecretChannel
 
 with open("./config.json", "r") as f:
     config = json.load(f)
@@ -34,7 +35,8 @@ class Secrets(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @app_commands.command(name='anon_post', description='Sends an anonymous post. ** Mods can see the non-anonymous version **')
+    @app_commands.command(name='anon_post', description='Sends an anonymous post. **Mods can see the non-anonymous version if a channel is set.**')
+    @app_commands.describe(content='Content of your anonymous post.')
     async def send_anon_post(self, interaction: discord.Interaction, content: str):
         if len(content.strip()) == 0:
             return await interaction.response.send_message("Please send a message with something in `content`.", ephemeral=True, delete_after=30)
@@ -48,7 +50,8 @@ class Secrets(commands.Cog):
         anon_channel = await self.bot.fetch_channel(anon_channel)
         anon_msg = await anon_channel.send(embed=anon_embed)
         if mod_channel is not None:
-            mod_embed = discord.Embed(color=discord.Color.dark_orange(), title=f'Anonymous post by {interaction.user.display_name}', description=f"Content: {content}")
+            mod_embed = discord.Embed(color=discord.Color.dark_orange(), title=f'New anonymous post!', description=f"Content: {content}")
+            mod_embed.set_author(name=interaction.user.display_name, icon_url=interaction.user.avatar.url)
             mod_embed.add_field(name='User ID', value=interaction.user.id)
             mod_embed.add_field(name='User Link', value=interaction.user.mention)
             mod_embed.add_field(name='', value='', inline=False)
