@@ -4,7 +4,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from modals.secret_channel import ModChannel, SecretChannel
-from sqlalchemy import create_engine, delete, insert, select, update
+from sqlalchemy import create_engine, select, update
 from sqlalchemy.orm import Session
 
 with open("./config.json", "r") as f:
