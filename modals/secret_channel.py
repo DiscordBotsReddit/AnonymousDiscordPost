@@ -1,4 +1,4 @@
-from sqlalchemy import BigInteger, Identity, Integer, Text
+from sqlalchemy import BigInteger, Identity, Integer
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
